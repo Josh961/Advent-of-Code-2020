@@ -6,7 +6,6 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "noImplicitAny": true,
     "allowSyntheticDefaultImports": true,
   }
 }
