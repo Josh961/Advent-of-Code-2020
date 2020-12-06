@@ -38,6 +38,7 @@ module.exports = {
     "prefer-spread": "warn",
     "sort-imports": "warn",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-unsafe-return": "off"
   }
 };
