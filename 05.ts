@@ -15,6 +15,17 @@ for (const line of lines) {
 
 console.log(Math.max(...seatIds));
 
+let missingSeatId: number;
+const sortedIds = seatIds.sort((a, b) => a - b);
+for (let i = 1; i < sortedIds.length; i++) {
+  if (sortedIds[i] - 1 !== sortedIds[i - 1]) {
+    missingSeatId = sortedIds[i] - 1;
+    break;
+  }
+}
+
+console.log(missingSeatId);
+
 function calculateRowOrColumn(characters: string, min: number, max: number): number {
   let value: number;
   for (let i = 0; i < characters.length; i++) {
