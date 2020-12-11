@@ -20,3 +20,21 @@ for (const group of groups) {
 }
 
 console.log(sumOfAnswers);
+
+sumOfAnswers = 0;
+for (const group of groups) {
+  const numPeople = group.split(/[\r\n]+/).length;
+  const line = group.replace(/[\r\n]+/g, '');
+  const occurences = [...line].reduce((res, char) => {
+    res[char] = res[char] ? res[char] + 1 : 1;
+    return res;
+  }, {} as Record<string, number>);
+
+  for (const key of Object.keys(occurences)) {
+    if (occurences[key] === numPeople) {
+      sumOfAnswers++;
+    }
+  }
+}
+
+console.log(sumOfAnswers);
