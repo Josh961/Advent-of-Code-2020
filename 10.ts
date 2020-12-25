@@ -21,3 +21,22 @@ for (let i = 1; i < joltages.length; i++) {
 }
 
 console.log(oneJoltDifferences * threeJoltDifferences);
+
+const memo: number[] = [];
+memo[0] = 1;
+for (let i = 1; i < joltages.length; i++) {
+  let pathsToAdapter = 0;
+  if (joltages[i] - 1 === joltages[i - 1]) {
+    pathsToAdapter++;
+  }
+  if (joltages[i] - 2 === joltages[i - 1] || joltages[i] - 2 === joltages[i - 2]) {
+    pathsToAdapter++;
+  }
+  if (joltages[i] - 3 === joltages[i - 1] || joltages[i] - 3 === joltages[i - 2] || joltages[i] - 3 === joltages[i - 3]) {
+    pathsToAdapter++;
+  }
+
+  memo[i] = pathsToAdapter === 1 ? memo[i - 1] : pathsToAdapter === 2 ? memo[i - 1] + memo[i - 2] : memo[i - 1] + memo[i - 2] + memo[i - 3];
+}
+
+console.log(Math.max(...memo));
