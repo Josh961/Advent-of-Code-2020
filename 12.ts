@@ -54,3 +54,59 @@ for (const instruction of instructions) {
 }
 
 console.log(Math.abs(verticalDistance) + Math.abs(horizontalDistance));
+
+currentDirection = 'E';
+verticalDistance = 0;
+horizontalDistance = 0;
+let waypointVerticalDistance = 1;
+let waypointHorizontalDistance = 10;
+for (const instruction of instructions) {
+  const action = instruction.substr(0, 1);
+  const value = +instruction.substring(1, instruction.length);
+
+  switch (action) {
+    case 'N': {
+      waypointVerticalDistance += value;
+      break;
+    }
+    case 'S': {
+      waypointVerticalDistance -= value;
+      break;
+    }
+    case 'E': {
+      waypointHorizontalDistance += value;
+      break;
+    }
+    case 'W': {
+      waypointHorizontalDistance -= value;
+      break;
+    }
+    case 'L': {
+      const turns = value / 90;
+      for (let i = 0; i < turns; i++) {
+        const previousVerticalDistance = waypointVerticalDistance;
+        const previousHorizontalDistance = waypointHorizontalDistance;
+        waypointVerticalDistance = previousHorizontalDistance;
+        waypointHorizontalDistance = -previousVerticalDistance;
+      }
+      break;
+    }
+    case 'R': {
+      const turns = value / 90;
+      for (let i = 0; i < turns; i++) {
+        const previousVerticalDistance = waypointVerticalDistance;
+        const previousHorizontalDistance = waypointHorizontalDistance;
+        waypointVerticalDistance = -previousHorizontalDistance;
+        waypointHorizontalDistance = previousVerticalDistance;
+      }
+      break;
+    }
+    case 'F': {
+      verticalDistance = verticalDistance + (value * waypointVerticalDistance);
+      horizontalDistance = horizontalDistance + (value * waypointHorizontalDistance);
+      break;
+    }
+  }
+}
+
+console.log(Math.abs(verticalDistance) + Math.abs(horizontalDistance));
