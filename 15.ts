@@ -5,29 +5,30 @@ import { Utils } from './utils';
 
 const numbers = Utils.parseFile('./inputs/15.txt')[0].split(',');
 
-const numbersSpoken: Record<string, number> = {};
-let turn = 1;
-for (const number of numbers) {
-  numbersSpoken[number] = turn++;
-}
+playGame(2020, numbers);
+playGame(30000000, numbers);
 
-turn++;
-let spokenNumber = 0;
-while (turn <= 2020) {
-  if (numbersSpoken[spokenNumber]) {
-    const differenceLastSpokenToMostRecent = (turn - 1) - numbersSpoken[spokenNumber];
-    numbersSpoken[spokenNumber] = turn - 1;
-    if (differenceLastSpokenToMostRecent === 0) {
-      spokenNumber = 1;
-    } else {
-      spokenNumber = differenceLastSpokenToMostRecent;
-    }
-  } else {
-    numbersSpoken[spokenNumber] = turn - 1;
-    spokenNumber = 0;
+function playGame(turnsToPlay: number, startingNumbers: string[]): void {
+  const numbersSpoken: Record<string, number> = {};
+  let turn = 1;
+  for (const number of startingNumbers) {
+    numbersSpoken[number] = turn++;
   }
 
   turn++;
-}
+  let spokenNumber = 0;
+  while (turn <= turnsToPlay) {
+    if (numbersSpoken[spokenNumber]) {
+      const differenceLastSpokenToMostRecent = (turn - 1) - numbersSpoken[spokenNumber];
+      numbersSpoken[spokenNumber] = turn - 1;
+      spokenNumber = differenceLastSpokenToMostRecent === 0 ? 1 : differenceLastSpokenToMostRecent;
+    } else {
+      numbersSpoken[spokenNumber] = turn - 1;
+      spokenNumber = 0;
+    }
 
-console.log(spokenNumber);
+    turn++;
+  }
+
+  console.log(spokenNumber);
+}
